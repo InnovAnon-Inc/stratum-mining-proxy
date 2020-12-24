@@ -37,5 +37,6 @@ EXPOSE 3333
 EXPOSE 8332
 ENTRYPOINT ["/usr/bin/env", "python2", "/app/mining_proxy.py"]
 CMD        ["--help"]
-CMD        ["-o", "scrypt.na.mine.zergpool.com", "-p", "3433", "-cu", "FHqqd3DbyQr7NX7rdDKhYmXKYoPTfjUuZh", "-cp", "c=FLO"]
+#CMD        ["-o", "scrypt.na.mine.zergpool.com", "-p", "3433", "-cu", "FHqqd3DbyQr7NX7rdDKhYmXKYoPTfjUuZh", "-cp", "c=FLO"]
+CMD        ["-o", "yescrypt.na.mine.zergpool.com", "-p", "6233", "-cu", "FHqqd3DbyQr7NX7rdDKhYmXKYoPTfjUuZh", "-cp", "c=FLO"]
 
