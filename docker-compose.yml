@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  jenkins:
+    image: innovanon/stratum-mining-proxy:latest
+    environment:
+      - HOST
+      - POST
+      - CUSTOM_USER
+      - CUSTOM_PASSWORD
+    env_file:
+      - .env
+    ports:
+      - 3333:3333
+      - 8332:8332
+    #volumes:
+    #  - jenkins_data:/var/jenkins_home
+    #  - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - miner-net
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        #condition: on-failure
+         condition: always
+      #placement:
+      #  constraints: 
+      #    - node.role == worker
+    #healthcheck:
+    #  test: ["CMD-SHELL", "curl -sS http://localhost:8080/login || exit 1"]
+    #  interval: 30s
+    #  timeout: 10s
+    #  retries: 5      
+
+#volumes:
+#  jenkins_data:
+
+networks:
+  miner-net:
+    #driver: overlay
+    #external: true
+
