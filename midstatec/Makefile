@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -march=native -Wall -funroll-all-loops -O3 -fstrict-aliasing -Wall -std=c99 -I/usr/include/python2.7
+#CFLAGS = -march=native -Wall -funroll-all-loops -O3 -fstrict-aliasing -Wall -std=c99 -I/usr/include/python2.7
+CFLAGS = -Wall -funroll-all-loops -O3 -fstrict-aliasing -Wall -std=c99 -I/usr/include/python2.7
 LDFLAGS = -Wl,-O1 -Wl,--as-needed -lpython2.7
 
 all: test midstate.so

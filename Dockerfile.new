@@ -2,30 +2,45 @@ FROM ubuntu:16.04 as base
 MAINTAINER Michael Twomey, mick@twomeylee.name
 
 RUN apt update          \
- && apt full-upgrade -y \
- && apt install      -y \
+ && apt full-upgrade -y
+RUN apt install      -y \
       ca-certificates   \
+      python3           \
+      python3-pip       \
       python2.7         \
       python-pip
 
 FROM base as builder
 RUN apt install -y  \
     build-essential \
-    python2.7-dev
+    python3-dev     \
+    python-dev
+RUN python3 -m pip install -U --no-cache-dir pip
 RUN python2 -m pip install -U --no-cache-dir pip
+RUN python3 -m pip install -U --no-cache-dir setuptools wheel
 RUN python2 -m pip install -U --no-cache-dir setuptools wheel
+RUN python3 -m pip install -U --no-cache-dir distribute argparse twisted
 RUN python2 -m pip install -U --no-cache-dir distribute argparse twisted
 WORKDIR /app
 COPY . ./
-RUN python2 -m pip install    --no-cache-dir lib/stratum-0.2.15.tar.gz
-#RUN cd midstatec && make -j$(nproc)
-#RUN python2 setup.py bdist_wheel
-#RUN python2 -m pip install    --no-cache-dir .
-#RUN python2 -m pip install    --no-cache-dir .
-RUN python2 setup.py build
-RUN python2 setup.py sdist
-RUN python2 setup.py bdist_wheel
-RUN python2 setup.py install
+#RUN python3 -m pip install    --no-cache-dir lib/stratum-0.2.15.tar.gz
+RUN cd     lib                   \
+ && tar xf stratum-0.2.15.tar.gz \
+ && cd     stratum-0.2.15        \
+ && python2 setup.py build       \
+ && python2 setup.py sdist       \
+ && python2 setup.py bdist_wheel \
+ && python2 setup.py install     \
+ && cd     ..                    \
+ && rm -rf stratum-0.2.15*
+##RUN cd midstatec && make -j$(nproc)
+##RUN python2 setup.py bdist_wheel
+##RUN python2 -m pip install    --no-cache-dir .
+##RUN python2 -m pip install    --no-cache-dir .
+RUN python3 setup.py build
+RUN python3 setup.py sdist
+RUN python3 setup.py bdist_wheel
+RUN python3 setup.py install
 #RUN python2 setup.py install bdist_wheel
 
 #FROM base as app

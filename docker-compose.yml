@@ -2,9 +2,10 @@ version: '3.8'
 services:
   stratum-mining-proxy:
     image: innovanon/stratum-mining-proxy:latest
+    build: .
     environment:
       - HOST
-      - POST
+      - PORT
       - CUSTOM_USER
       - CUSTOM_PASSWORD
     #env_file:
@@ -37,6 +38,7 @@ services:
 
 networks:
   miner-net:
+    #enable_ipv6: false
     #driver: overlay
     #external: true
 
